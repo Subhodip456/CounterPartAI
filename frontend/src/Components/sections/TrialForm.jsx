@@ -13,7 +13,7 @@ export default function TrialForm({ title, description, fields = [], submitLabel
     setStatus("submitting");
     setError("");
     try {
-      const response = await fetch(`${API_URL}/api/trials`, { headers: { "Content-Type": "application/json" }, method: "POST", body: JSON.stringify(values) });
+      const response = await fetch(`/api/trials`, { headers: { "Content-Type": "application/json" }, method: "POST", body: JSON.stringify(values) });
       const body = await response.json();
       if (!response.ok) throw new Error(body.error || "We could not start your trial.");
       setStatus("success");
