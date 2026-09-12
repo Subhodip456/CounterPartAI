@@ -1,7 +1,7 @@
 import express from "express";
 import { draftReply } from "./reviewReplyService.js";
 
-const port = Number(process.env.PORT);
+const port = Number(process.env.PORT || 4000);
 const allowedOrigin = process.env.FRONTEND_ORIGIN ;
 const trialRequests = [];
 const app = express();
