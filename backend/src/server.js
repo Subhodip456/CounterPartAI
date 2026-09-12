@@ -39,7 +39,6 @@ app.post("/api/replies/draft", async (request, response, next) => {
 app.use((_request, _response, next) => next(Object.assign(new Error("Route not found."), { statusCode: 404 })));
 app.use((error, _request, response, _next) => response.status(error.statusCode || 400).json({ error: error.message || "Unexpected server error." }));
 
-// app.listen(port, () => console.log(`Counterpart API listening at http://localhost:${port}`));
 if (!process.env.NETLIFY) {
   app.listen(port, () => {
     console.log(
