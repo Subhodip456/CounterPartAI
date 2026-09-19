@@ -23,6 +23,7 @@ export async function draftReply(input) {
   }
 
   const response = await fetch(OPENAI_URL, {
+    signal: AbortSignal.timeout(30000),
     method: "POST",
     headers: { "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -40,7 +41,7 @@ export async function draftReply(input) {
     error.statusCode = 502;
     throw error;
   }
-  const reply = body.output_text?.trim();
+  const reply = (body.output_text || body.output?.filter((item) => item.type === "message").flatMap((item) => item.content || []).filter((item) => item.type === "output_text").map((item) => item.text).join("\n"))?.trim();
   if (!reply) throw new Error("The AI provider returned an empty reply.");
   return { reply, needsOwnerReview: reply === "FLAG_FOR_OWNER_REVIEW" };
 }

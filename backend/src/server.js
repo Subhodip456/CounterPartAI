@@ -1,5 +1,7 @@
 import express from "express";
 import { draftReply } from "./reviewReplyService.js";
+import { googleRouter, requireGoogle, sameOrigin } from "./google.js";
+import { pathToFileURL } from "node:url";
 
 const port = Number(process.env.PORT || 4000);
 const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
@@ -21,6 +23,7 @@ function validateTrial(input) {
 }
 
 app.get("/api/health", (_request, response) => response.json({ ok: true }));
+app.use("/api", googleRouter);
 
 app.post("/api/trials", (request, response, next) => {
   try {
@@ -32,7 +35,7 @@ app.post("/api/trials", (request, response, next) => {
   }
 });
 
-app.post("/api/replies/draft", async (request, response, next) => {
+app.post("/api/replies/draft", sameOrigin, requireGoogle, async (request, response, next) => {
   try { response.json(await draftReply(request.body)); } catch (error) { next(error); }
 });
 
@@ -40,7 +43,7 @@ app.use((_request, _response, next) => next(Object.assign(new Error("Route not f
 app.use((error, _request, response, _next) => response.status(error.statusCode || 400).json({ error: error.message || "Unexpected server error." }));
 
 // app.listen(port, () => console.log(`Counterpart API listening at http://localhost:${port}`));
-if (!process.env.NETLIFY) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   app.listen(port, () => {
     console.log(
       `Counterpart API listening at http://localhost:${port}`

@@ -1,0 +1,14 @@
+.cp-inbox { display: grid; gap: 18px; }
+.cp-inbox h2 { font-size: 2.2rem; }
+.cp-inbox button, .cp-inbox-connect { border: 1px solid #1b3a2b; border-radius: 6px; padding: 12px 18px; background: #1b3a2b; color: #fff !important; font: inherit; cursor: pointer; width: fit-content; }
+.cp-inbox button:disabled { opacity: .5; cursor: not-allowed; }
+.cp-inbox select, .cp-inbox textarea { box-sizing: border-box; width: 100%; padding: 12px; border: 1px solid #d8d0bc; border-radius: 6px; font: inherit; background: #fffdf8; color: #14201a; }
+.cp-inbox-toolbar { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.cp-inbox-toolbar a { text-decoration: underline; }
+.cp-inbox-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.cp-inbox-card { display: grid; align-content: start; gap: 16px; padding: 24px; border: 1px solid #d8d0bc; border-radius: 10px; background: #f1eada; }
+.cp-inbox-comment { white-space: pre-wrap; overflow-wrap: anywhere; }
+.cp-inbox-meta { color: #5c6459; font-size: .9rem; }
+.cp-inbox-approval { display: flex; gap: 10px; align-items: flex-start; }
+.cp-inbox [role=alert] { color: #a32c20; }
+@media (max-width: 720px) { .cp-inbox-grid { grid-template-columns: 1fr; } }

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "../counterpart-landing";
 
-// const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
 
 export default function TrialForm({ title, description, fields = [], submitLabel, note }) {
   const [values, setValues] = useState(() => Object.fromEntries(fields.map((field) => [field.id, ""])));

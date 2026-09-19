@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders the Google review desk and reports missing configuration', async () => {
+  global.fetch = jest.fn().mockResolvedValue({ ok: true, json: async () => ({ connected: false, configured: false }) });
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /Your Google review desk/i })).toBeInTheDocument();
+  expect(await screen.findByText(/Account setup is in progress/i)).toBeInTheDocument();
 });
