@@ -4,7 +4,7 @@ import { googleRouter, requireGoogle, sameOrigin } from "./google.js";
 import { pathToFileURL } from "node:url";
 
 const port = Number(process.env.PORT || 4000);
-const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+const allowedOrigin = process.env.FRONTEND_ORIGIN ;
 const trialRequests = [];
 const app = express();
 
@@ -52,3 +52,4 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 }
 
 export { app };
+

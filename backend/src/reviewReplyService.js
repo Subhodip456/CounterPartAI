@@ -27,7 +27,7 @@ export async function draftReply(input) {
     method: "POST",
     headers: { "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: process.env.OPENAI_MODEL || "gpt-5-mini",
+      model: process.env.OPENAI_MODEL,
       store: false,
       instructions: "You draft public replies to business reviews. Return only the ready-to-publish reply, no title or quotation marks. Be empathetic, specific where supported, concise (60–110 words), and never invent remedies, events, policies, or facts. Do not promise a refund, discount, or future action unless the review input explicitly supplies it. If the review is abusive, threatening, discriminatory, or clearly a fake-review allegation, return exactly: FLAG_FOR_OWNER_REVIEW.",
       input: `Business: ${review.businessName}\nPreferred tone: ${review.tone}\nReviewer name: ${review.reviewerName || "not provided"}\nReview:\n${review.review}`,
